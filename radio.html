@@ -1,0 +1,670 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A local-first signal hub for crypto market data, recent research records, and an optional opt-in radio."
+    />
+    <meta name="theme-color" content="#08111f" />
+    <title>Abyss Watchers | Radio Realm</title>
+    <link rel="manifest" href="./manifest.json?v=20260410e" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css?v=20260410e" />
+  </head>
+  <body data-default-realm="radio">
+    <div id="abyssStage" class="abyss-stage" aria-hidden="true">
+      <div class="abyss-stars"></div>
+      <div class="abyss-grid-plane"></div>
+      <div class="reactive-orb"></div>
+      <div class="portal-sheen"></div>
+      <div class="portal-beam"></div>
+      <div class="portal-rings"></div>
+      <div class="portal-iris"></div>
+      <img
+        class="abyss-logo-layer abyss-logo-echo"
+        src="./assets/abyss-watchers-logo-main.png?v=20260410e"
+        alt=""
+      />
+      <img
+        class="abyss-logo-layer abyss-logo-core"
+        src="./assets/abyss-watchers-logo-main.png?v=20260410e"
+        alt=""
+      />
+      <div class="portal-core-glow"></div>
+      <div class="abyss-vignette"></div>
+    </div>
+    <div class="realm-hud" aria-hidden="true">
+      <p class="realm-kicker">Portal Drift</p>
+      <h2 id="realmLabel" class="realm-label">Threshold</h2>
+      <div class="realm-meter">
+        <span id="realmMeterFill" class="realm-meter-fill"></span>
+      </div>
+      <p id="realmDepthValue" class="realm-depth-value">0% depth</p>
+    </div>
+    <div id="radioWelcomeModal" class="welcome-modal" role="dialog" aria-modal="true" aria-labelledby="radioWelcomeTitle">
+      <div class="welcome-modal-backdrop"></div>
+      <div class="welcome-modal-card">
+        <p class="panel-label">Portal Arrival</p>
+        <h2 id="radioWelcomeTitle">Choose Your Entry Sound</h2>
+        <p class="welcome-copy">
+          Before you enter the site, choose whether the portal should start the radio automatically.
+          Choose yes to play the default station right away, or choose no to enter in silence.
+        </p>
+        <div class="welcome-actions">
+          <button id="acceptRadio" class="primary-button" type="button">Yes, Play It</button>
+          <button id="declineRadio" class="ghost-button" type="button">No, Enter Silent</button>
+        </div>
+      </div>
+    </div>
+    <div class="background-grid" aria-hidden="true"></div>
+    <div class="radio-wall" aria-hidden="true">
+      <div class="radio-wall-wash"></div>
+      <div class="graffiti-cluster graffiti-cluster-left">
+        <span class="graffiti-tag graffiti-tag-hot">FREE THINKERS</span>
+        <span class="graffiti-tag graffiti-tag-cyan">NO STATIC</span>
+      </div>
+      <div class="graffiti-cluster graffiti-cluster-right">
+        <span class="graffiti-tag graffiti-tag-lime">PLAY IT LOUD</span>
+        <span class="graffiti-tag graffiti-tag-pink">SIGNAL RIOT</span>
+      </div>
+      <div class="graffiti-sigil graffiti-sigil-a"></div>
+      <div class="graffiti-sigil graffiti-sigil-b"></div>
+    </div>
+    <div class="page-shell">
+      <div class="secret-cat" aria-label="Hidden cat charm">
+        <div class="secret-cat-bubble">purr</div>
+        <img
+          class="secret-cat-image"
+          src="./assets/luna.jpeg?v=20260410e"
+          alt="A fluffy black cat peeking out from the top of the website"
+        />
+      </div>
+      <header class="site-nav glass-card">
+        <div class="site-brand">
+          <img
+            class="site-logo"
+            src="./assets/abyss-watchers-logo-main.png?v=20260410e"
+            alt="Abyss Watchers logo"
+          />
+          <div class="site-brand-copy">
+            <p class="eyebrow">Abyss Watchers</p>
+            <h1 class="site-title">Signal Mesh Portal</h1>
+            <p class="subtle-copy">Choose a realm instead of digging through one huge page.</p>
+          </div>
+        </div>
+        <div class="realm-nav" role="tablist" aria-label="Website realms">
+          <a class="realm-tab" role="tab" data-realm-target="portal" aria-selected="true" href="./index.html">Portal</a>
+          <a class="realm-tab" role="tab" data-realm-target="crypto" aria-selected="false" href="./crypto.html">Crypto</a>
+          <a class="realm-tab" role="tab" data-realm-target="research" aria-selected="false" href="./research.html">Research</a>
+          <a class="realm-tab" role="tab" data-realm-target="caveman" aria-selected="false" href="./caveman.html">Caveman</a>
+          <a class="realm-tab" role="tab" data-realm-target="radio" aria-selected="false" href="./radio.html">Radio</a>
+        </div>
+      </header>
+      <header class="hero" data-realm-pane="portal">
+        <div class="hero-copy">
+          <p class="eyebrow">Portal Realm</p>
+          <h2 class="hero-title">Track the chain. Read the lab. Drift through the abyss.</h2>
+          <p class="hero-text">
+            Abyss Watchers now splits the experience into separate realms so crypto,
+            screened health research, the caveman cave, and radio each get their own
+            space instead of piling into one crowded screen.
+          </p>
+          <div class="hero-actions">
+            <button id="refreshAll" class="primary-button" type="button">Refresh Mesh</button>
+                <a class="ghost-button nav-link-button" href="./crypto.html">Open Crypto Realm</a>
+                <a class="ghost-button nav-link-button" href="./research.html">Open Research Realm</a>
+            <a id="openCavemanBot" class="ghost-button nav-link-button" href="./caveman.html">
+              Enter Caveman Cave
+            </a>
+            <a class="ghost-button nav-link-button" href="./radio.html">Open Radio Realm</a>
+            <button id="sharePack" class="ghost-button" type="button">Export Signal Pack</button>
+            <label class="ghost-button import-button">
+              Import Signal Pack
+              <input id="importPack" type="file" accept="application/json" hidden />
+            </label>
+          </div>
+          <p class="scene-instruction">Scroll to dive deeper. Click anywhere to send a ripple through the abyss.</p>
+          <p id="statusMessage" class="status-message" aria-live="polite">
+            Booting local mesh...
+          </p>
+        </div>
+        <aside class="hero-panel glass-card">
+          <div class="hero-art-shell">
+            <img
+              class="hero-art"
+              src="./assets/abyss-watchers-logo-main.png?v=20260410e"
+              alt="Abyss Watchers portal artwork"
+            />
+            <div class="hero-art-copy">
+              <p class="panel-label">Portal Feed</p>
+              <p class="hero-art-text">
+                The signal field bends as you move. Market motion, publication records,
+                and radio controls all float inside the same abyss.
+              </p>
+            </div>
+          </div>
+          <p class="panel-label">Node Profile</p>
+          <div class="node-profile">
+            <div>
+              <p class="metric-label">Health focus</p>
+              <p id="activeTopicLabel" class="metric-value">Metabolic Health</p>
+            </div>
+            <div>
+              <p class="metric-label">Tracked assets</p>
+              <p id="watchlistCount" class="metric-value">0</p>
+            </div>
+            <div>
+              <p class="metric-label">Node ID</p>
+              <p id="nodeFingerprint" class="metric-value">Generating...</p>
+            </div>
+            <div>
+              <p class="metric-label">Pack trust</p>
+              <p id="packTrustStatus" class="metric-value">Unsigned</p>
+            </div>
+          </div>
+          <div class="node-notes">
+            <label for="nodeNotes">Why this node matters</label>
+            <textarea
+              id="nodeNotes"
+              rows="5"
+              placeholder="Leave context for your community, thesis notes, or trade ideas..."
+            ></textarea>
+          </div>
+        </aside>
+      </header>
+
+      <main class="dashboard">
+        <section class="control-strip glass-card" data-realm-pane="research">
+          <div class="control-group">
+            <label for="scienceQuery">Research query</label>
+            <div class="search-row">
+              <input
+                id="scienceQuery"
+                type="search"
+                placeholder="Search cardio, muscle growth, viruses, parasites, cancer..."
+              />
+              <button id="runResearchSearch" type="button">Scan Papers</button>
+            </div>
+          </div>
+          <div class="control-group">
+            <p>Health channels</p>
+            <div id="topicChips" class="chip-row" role="tablist" aria-label="Health research topics"></div>
+          </div>
+          <div class="control-group">
+            <p>Quick move</p>
+            <div class="chip-row">
+              <button class="topic-chip" type="button" data-realm-target="portal">Back To Portal</button>
+              <button class="topic-chip" type="button" data-realm-target="crypto">Go To Crypto</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="overview-grid" data-realm-pane="portal">
+          <article class="glass-card overview-card">
+            <p class="panel-label">Market Cap</p>
+            <h2 id="globalMarketCap">$0</h2>
+            <p id="marketCapChange" class="market-sentiment neutral">Waiting for feed...</p>
+          </article>
+          <article class="glass-card overview-card">
+            <p class="panel-label">24h Volume</p>
+            <h2 id="globalVolume">$0</h2>
+            <p class="subtle-copy">Across the tracked crypto universe.</p>
+          </article>
+          <article class="glass-card overview-card">
+            <p class="panel-label">BTC Dominance</p>
+            <h2 id="btcDominance">0%</h2>
+            <p class="subtle-copy">A quick check on risk appetite.</p>
+          </article>
+          <article class="glass-card overview-card">
+            <p class="panel-label">Research Hits</p>
+            <h2 id="paperCount">0</h2>
+            <p class="subtle-copy">Recent screened PubMed and PMC articles matching your health focus.</p>
+          </article>
+        </section>
+
+        <section class="content-grid realm-switch-grid">
+          <article class="glass-card" data-realm-pane="crypto">
+            <div class="section-heading">
+              <div>
+                <p class="panel-label">Crypto Pulse</p>
+                <h2>Market board</h2>
+              </div>
+              <p class="subtle-copy">Live from public market feeds.</p>
+            </div>
+            <div class="realm-tools">
+              <div class="search-row">
+                <input
+                  id="assetInput"
+                  type="text"
+                  placeholder="bitcoin, ethereum, solana..."
+                />
+                <button id="addAsset" type="button">Add Asset</button>
+              </div>
+              <div class="chip-row">
+                <button class="topic-chip" type="button" data-realm-target="portal">Back To Portal</button>
+                <button class="topic-chip" type="button" data-realm-target="research">Go To Research</button>
+              </div>
+            </div>
+            <div class="tab-row" role="tablist" aria-label="Crypto views">
+              <button
+                class="section-tab"
+                type="button"
+                role="tab"
+                data-tab-group="crypto"
+                data-tab-id="board"
+                aria-selected="true"
+              >
+                Market Board
+              </button>
+              <button
+                class="section-tab"
+                type="button"
+                role="tab"
+                data-tab-group="crypto"
+                data-tab-id="watchlist"
+                aria-selected="false"
+              >
+                Watchlist
+              </button>
+              <button
+                class="section-tab"
+                type="button"
+                role="tab"
+                data-tab-group="crypto"
+                data-tab-id="pulse"
+                aria-selected="false"
+              >
+                Macro Pulse
+              </button>
+            </div>
+            <div id="cryptoPaneBoard" class="tab-pane">
+              <div class="table-shell">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Asset</th>
+                      <th>Price</th>
+                      <th>24h</th>
+                      <th>Market cap</th>
+                      <th>Volume</th>
+                    </tr>
+                  </thead>
+                  <tbody id="marketTableBody"></tbody>
+                </table>
+              </div>
+            </div>
+            <div id="cryptoPaneWatchlist" class="tab-pane hidden">
+              <div id="watchlist" class="watchlist"></div>
+            </div>
+            <div id="cryptoPanePulse" class="tab-pane hidden">
+              <div id="marketInsights" class="summary-panel"></div>
+            </div>
+          </article>
+
+          <article class="glass-card" data-realm-pane="research">
+            <div class="section-heading">
+              <div>
+                <p class="panel-label">Research Radar</p>
+                <h2>Screened health research</h2>
+              </div>
+              <p class="subtle-copy">Recent biomedical records that clear the site's evidence gate, with tabs for latest studies, reviews, and clinical trials.</p>
+            </div>
+            <div class="tab-row" role="tablist" aria-label="Research views">
+              <button
+                class="section-tab"
+                type="button"
+                role="tab"
+                data-tab-group="research"
+                data-tab-id="latest"
+                aria-selected="true"
+              >
+                Latest
+              </button>
+              <button
+                class="section-tab"
+                type="button"
+                role="tab"
+                data-tab-group="research"
+                data-tab-id="reviews"
+                aria-selected="false"
+              >
+                Reviews
+              </button>
+              <button
+                class="section-tab"
+                type="button"
+                role="tab"
+                data-tab-group="research"
+                data-tab-id="clinical"
+                aria-selected="false"
+              >
+                Clinical
+              </button>
+            </div>
+            <div id="paperFeed" class="paper-feed"></div>
+          </article>
+        </section>
+
+        <section class="content-grid" data-realm-pane="portal">
+          <article class="glass-card">
+            <div class="section-heading">
+              <div>
+                <p class="panel-label">Mesh Trust</p>
+                <h2>Signed sharing</h2>
+              </div>
+              <p class="subtle-copy">
+                Portable packs are owned by your node and verified on import.
+              </p>
+            </div>
+            <div class="summary-panel">
+              <article class="summary-point">
+                <h3>Self-owned identity</h3>
+                <p>Your browser creates and keeps a local node keypair for signed signal packs.</p>
+              </article>
+              <article class="summary-point">
+                <h3>Verified imports</h3>
+                <p>Imported packs are checked against the included public key so tampered or unsigned bundles are visible immediately.</p>
+              </article>
+              <article class="summary-point">
+                <h3>Evidence-gated reading</h3>
+                <p>The research tabs now screen for recent NCBI-linked biomedical articles with abstracts, stronger indexing signals, and source links back to the paper trail.</p>
+              </article>
+            </div>
+          </article>
+
+          <article class="glass-card">
+            <div class="section-heading">
+              <div>
+                <p class="panel-label">Signal Summary</p>
+                <h2>Cross-domain briefing</h2>
+              </div>
+              <p class="subtle-copy">A quick narrative stitched from market and research movement.</p>
+            </div>
+            <div id="summaryPanel" class="summary-panel"></div>
+          </article>
+        </section>
+
+        <section class="content-grid caveman-grid" data-realm-pane="caveman">
+          <article id="cavemanSection" class="glass-card caveman-card">
+            <div class="section-heading">
+              <div>
+                <p class="panel-label">Primitive Relay</p>
+                <h2>Caveman Cave</h2>
+              </div>
+              <p class="subtle-copy">
+                Ask a question, get a ridiculous cave answer, then prep a caveman portrait email.
+              </p>
+            </div>
+            <div class="caveman-ai-bar">
+              <div>
+                <p class="panel-label">Local Brain</p>
+                <p id="cavemanAiStatus" class="subtle-copy">Checking local Ollama cave...</p>
+              </div>
+              <div class="radio-actions">
+                <button id="cavemanToggleAi" class="ghost-button" type="button">Use Ollama Brain</button>
+                <button id="cavemanRetryAi" class="ghost-button" type="button">Retry Brain Check</button>
+              </div>
+            </div>
+            <div class="tab-row" role="tablist" aria-label="Caveman bot views">
+              <button
+                class="section-tab"
+                type="button"
+                role="tab"
+                data-tab-group="caveman"
+                data-tab-id="chat"
+                aria-selected="true"
+              >
+                Stone Chat
+              </button>
+              <button
+                class="section-tab"
+                type="button"
+                role="tab"
+                data-tab-group="caveman"
+                data-tab-id="gift"
+                aria-selected="false"
+              >
+                Get Caveman Pic
+              </button>
+            </div>
+
+            <div id="cavemanPaneChat" class="tab-pane">
+              <div class="caveman-chat-layout">
+                <aside class="caveman-portrait-shell">
+                  <img
+                    class="caveman-portrait"
+                    src="./assets/caveman.webp?v=20260410e"
+                    alt="Humorous caveman portrait"
+                  />
+                  <p class="caveman-caption">
+                    Cave guide mode active. Throw in a question about crypto, research, gains, doom, or daily life.
+                  </p>
+                  <div class="chip-row caveman-prompts">
+                    <button class="topic-chip" type="button" data-caveman-prompt="Why is bitcoin acting weird today?">
+                      Bitcoin Weird
+                    </button>
+                    <button class="topic-chip" type="button" data-caveman-prompt="What does new cancer research mean?">
+                      Cancer Scroll
+                    </button>
+                    <button class="topic-chip" type="button" data-caveman-prompt="How do I get stronger fast?">
+                      Lift Big Rock
+                    </button>
+                    <button class="topic-chip" type="button" data-caveman-prompt="Tell me something funny about parasites.">
+                      Parasite Joke
+                    </button>
+                  </div>
+                </aside>
+
+                <div class="caveman-chat-shell">
+                  <div id="cavemanTranscript" class="caveman-transcript" aria-live="polite"></div>
+                  <div class="search-row caveman-input-row">
+                    <input
+                      id="cavemanInput"
+                      type="text"
+                      placeholder="Ask the cave something..."
+                    />
+                    <button id="cavemanSend" type="button">Send To Cave</button>
+                  </div>
+                  <button id="cavemanClear" class="ghost-button caveman-clear" type="button">
+                    Clear Cave Echoes
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div id="cavemanPaneGift" class="tab-pane hidden">
+              <div class="caveman-gift-grid">
+                <div class="caveman-form">
+                  <label for="cavemanName">Name</label>
+                  <input id="cavemanName" type="text" placeholder="Who enter cave?" />
+                  <label for="cavemanEmail">Email</label>
+                  <input id="cavemanEmail" type="email" placeholder="Where Grug send message stone?" />
+                  <p class="subtle-copy">
+                    The static site can prepare the email in your mail app. Real automatic sending would need a mail service.
+                  </p>
+                </div>
+
+                <div class="caveman-mail-card">
+                  <img
+                    class="caveman-mail-preview"
+                    src="./assets/caveman.webp?v=20260410e"
+                    alt="Caveman portrait preview"
+                  />
+                  <div class="radio-actions">
+                    <button id="cavemanPrepareEmail" class="primary-button" type="button">
+                      Prepare Caveman Email
+                    </button>
+                    <a
+                      id="cavemanOpenPortrait"
+                      class="ghost-button caveman-link-button"
+                      href="./assets/caveman.webp?v=20260410e"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Open Portrait
+                    </a>
+                  </div>
+                  <p id="cavemanMailStatus" class="status-message">
+                    Enter your name and email, then let the cave prepare the message.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="glass-card">
+            <div class="section-heading">
+              <div>
+                <p class="panel-label">Primitive Protocol</p>
+                <h2>How the cave works</h2>
+              </div>
+              <p class="subtle-copy">Ridiculous on purpose, honest about what the browser can actually do.</p>
+            </div>
+            <div class="summary-panel">
+              <article class="summary-point">
+                <h3>Question-based replies</h3>
+                <p>The bot riffs differently if you ask about crypto, health, cancer, viruses, parasites, workouts, or everyday nonsense.</p>
+              </article>
+              <article class="summary-point">
+                <h3>Name and email ritual</h3>
+                <p>The cave asks who you are, remembers your name locally, and uses your email to prepare a prefilled caveman message.</p>
+              </article>
+              <article class="summary-point">
+                <h3>No fake sending</h3>
+                <p>This node does not silently send mail on its own. It opens your mail app with the caveman picture link so the flow stays factual.</p>
+              </article>
+            </div>
+          </article>
+        </section>
+
+        <section class="content-grid" data-realm-pane="radio">
+          <article class="glass-card radio-card">
+            <div class="section-heading">
+              <div>
+                <p class="panel-label">Broadcast Console</p>
+                <h2>Portal soundtrack</h2>
+              </div>
+              <p class="subtle-copy">A brick-wall broadcast nook for free thinkers, late-night drift, and loud signal energy.</p>
+            </div>
+
+            <div class="radio-console-copy">
+              <p class="radio-copy">
+                If you entered in silence, you can reopen the portal prompt or load a custom YouTube station from here.
+              </p>
+              <button id="reopenRadioPrompt" class="ghost-button" type="button">Reopen Music Prompt</button>
+            </div>
+
+            <div id="radioControls" class="radio-controls hidden">
+              <div class="control-group">
+                <p>Quick fills</p>
+                <div class="chip-row">
+                  <button class="topic-chip" type="button" data-radio-fill="Abyss auto radio">
+                    Default Station
+                  </button>
+                  <button class="topic-chip" type="button" data-radio-fill="Luhh Dyl mix">
+                    Luhh Dyl
+                  </button>
+                </div>
+              </div>
+
+              <div class="control-group">
+                <label for="radioInput">YouTube link or ID</label>
+                <div class="search-row">
+                  <input
+                    id="radioInput"
+                    type="text"
+                    placeholder="Paste a YouTube video or playlist link to start the station"
+                  />
+                  <button id="loadRadio" type="button">Load Station</button>
+                </div>
+              </div>
+
+              <div class="radio-actions">
+                <button id="openYoutubeSearch" class="ghost-button" type="button">
+                  Search On YouTube
+                </button>
+                <button id="stopRadio" class="ghost-button" type="button">
+                  Stop Radio
+                </button>
+              </div>
+
+              <p id="radioStatus" class="status-message">
+                Pick a YouTube link or use a quick fill, then load the station.
+              </p>
+
+              <div id="radioPlayerShell" class="radio-player-shell hidden">
+                <iframe
+                  id="radioPlayer"
+                  class="radio-player"
+                  title="Abyss Watchers radio"
+                  allow="autoplay; encrypted-media; picture-in-picture"
+                  referrerpolicy="strict-origin-when-cross-origin"
+                ></iframe>
+              </div>
+            </div>
+          </article>
+
+          <article class="glass-card">
+            <div class="section-heading">
+              <div>
+                <p class="panel-label">Playback Notes</p>
+                <h2>How the radio behaves</h2>
+              </div>
+              <p class="subtle-copy">Built to respect user choice and browser autoplay rules.</p>
+            </div>
+            <div class="summary-panel">
+              <article class="summary-point">
+                <h3>Consent first</h3>
+                <p>The station stays silent until someone chooses yes in the welcome portal prompt.</p>
+              </article>
+              <article class="summary-point">
+                <h3>Source accuracy</h3>
+                <p>Crypto data comes from CoinGecko and research results come from screened PubMed and PMC-linked journal records. This improves source quality, but it is not a substitute for reading the paper or for medical advice.</p>
+              </article>
+              <article class="summary-point">
+                <h3>Autoplay caveat</h3>
+                <p>Because browsers can still block audible autoplay, the player may occasionally need one extra press inside the YouTube frame even after consent.</p>
+              </article>
+            </div>
+          </article>
+        </section>
+      </main>
+    </div>
+
+    <template id="topicChipTemplate">
+      <button class="topic-chip" type="button" role="tab" aria-selected="false"></button>
+    </template>
+
+    <aside class="luna-guide">
+      <button id="lunaToggle" class="luna-toggle" type="button" aria-expanded="false">
+          <img class="luna-avatar" src="./assets/luna.jpeg?v=20260410e" alt="Luna the helper cat" />
+        <span>Luna Guide</span>
+      </button>
+      <section id="lunaPanel" class="luna-panel hidden" aria-label="Luna helper guide">
+        <div class="luna-panel-header">
+          <img class="luna-avatar luna-avatar-large" src="./assets/luna.jpeg?v=20260410e" alt="Luna the helper cat" />
+          <div>
+            <p class="panel-label">Helper AI</p>
+            <h2>Luna Guide</h2>
+            <p id="lunaContext" class="subtle-copy">Luna is watching the portal.</p>
+          </div>
+        </div>
+        <div id="lunaTranscript" class="luna-transcript" aria-live="polite"></div>
+        <div id="lunaFaqChips" class="chip-row luna-faqs"></div>
+        <div class="search-row">
+          <input id="lunaInput" type="text" placeholder="Ask Luna where things are..." />
+          <button id="lunaSend" type="button">Ask Luna</button>
+        </div>
+      </section>
+    </aside>
+
+    <script src="./app.js?v=20260410e" defer></script>
+  </body>
+</html>
